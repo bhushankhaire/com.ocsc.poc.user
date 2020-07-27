@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		}
 		try {
 			User user = new User(ud.getUserId(), ud.getUserName(), ud.getMobileNumber(), ud.getEmailId());
-			repository.save(user);
+			user = repository.save(user);
 			ud.setUserId(user.getUserId());
 		} catch (Exception ex) {
 			logger.log(Level.ERROR, " in saveUser method: ", ex);
