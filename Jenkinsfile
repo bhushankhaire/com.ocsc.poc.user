@@ -26,5 +26,18 @@ pipeline {
                 }
             }
         }
+        stage('BUild Docker image') {
+            when { branch "master" }
+            steps {
+                sh '''
+                    docker login -u "bhushapkhaire" -p "bhuson@1987"
+                    docker build --no-cache -f Dockerfile -t user:latest2 .
+                    docker tag user:latest2 bhushapkhaire/user:latest2
+                    docker push bhushapkhaire/user:latest2
+                    docker rmi user:latest2
+                '''
+            }
+        }
+
     }
 }
