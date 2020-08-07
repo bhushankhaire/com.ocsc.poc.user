@@ -1,22 +1,33 @@
 pipeline {
+    
+    environment { 
+        registry = "bhushapkhaire/com.ocsc.poc.user"
+        registryCredential = '59b5987c-044b-4fc5-90c2-39f0ea8a761f'
+        dockerImage = '' 
+    }
+
+
     agent any
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "jenkins-maven"
     }
+    
 
     stages {
-        stage('Build') {
+        stage('Cloning our Git') {
+            steps { 
+                git 'https://github.com/YourGithubAccount/YourGithubRepository.git'
+            }
+        } 
+        stage('Maven Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/bhushankhaire/com.ocsc.poc.user.git'
-
+                //git 'https://github.com/bhushankhaire/com.ocsc.poc.user.git'
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
             }
-
             post {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
@@ -26,18 +37,26 @@ pipeline {
                 }
             }
         }
-        stage('BUild Docker image') {
-            when { branch "master" }
-            steps {
-                sh '''
-                    docker login -u "bhushapkhaire" -p "bhuson@1987"
-                    docker build --no-cache -f Dockerfile -t user:latest2 .
-                    docker tag user:latest2 bhushapkhaire/user:latest2
-                    docker push bhushapkhaire/user:latest2
-                    docker rmi user:latest2
-                '''
-            }
+        stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
         }
-
+		stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+            }
+        } 
     }
 }
