@@ -4,7 +4,7 @@ pipeline {
 	//registryUrl=""
         //registry = "bhushapkhaire/com.ocsc.poc.user"
         //registryCredential = '59b5987c-044b-4fc5-90c2-39f0ea8a761f'
-	registryUrl="bom.ocir.io"
+	registryUrl="https://bom.ocir.io"
 	registry = "bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user"
         registryCredential = 'bom-ocir-oi'
 	dockerImage = '' 
@@ -51,11 +51,11 @@ pipeline {
 	stage('Deploy our image') { 
             steps { 
                 script { 
-                  //  docker.withRegistry(registryUrl, registryCredential ) { 
-                  //     dockerImage.push() 
-                  //  }
-		   sh "sudo docker login -u 'yzguo69kabyn/oracleidentitycloudservice/bhushan.khaire@oracle.com' -p ':HCzXi)Oe-4gm2FRa9yo' bom.ocir.io"
-		   sh "sudo docker push "+dockerImage
+                  	docker.withRegistry(registryUrl, registryCredential ) { 
+                        dockerImage.push() 
+                   }
+		   //sh "sudo docker login -u 'yzguo69kabyn/oracleidentitycloudservice/bhushan.khaire@oracle.com' -p ':HCzXi)Oe-4gm2FRa9yo' bom.ocir.io"
+		   //sh "sudo docker push "+dockerImage
                 } 
             }
         } 
