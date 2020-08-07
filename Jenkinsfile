@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Cloning our Git') {
             steps { 
-                git 'https://github.com/YourGithubAccount/YourGithubRepository.git'
+                git 'https://github.com/bhushankhaire/com.ocsc.poc.user.git'
             }
         } 
         stage('Maven Build') {
