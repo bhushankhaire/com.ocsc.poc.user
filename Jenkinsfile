@@ -67,7 +67,7 @@ pipeline {
          /* Deploy the image to OKE*/
         steps {
             /*sh "'sudo cp /var/lib/jenkins/workspace/deploy.sh /var/lib/jenkins/workspace/jenkins-oci_master'"*/
-            sh 'sh ../../deploy.sh'
+            sh 'sh /var/lib/jenkins/workspace/com.ocsc.poc.user/deploy.sh'
            }
          }
     }
