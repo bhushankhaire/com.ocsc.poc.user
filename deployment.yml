@@ -28,7 +28,7 @@ spec:
         app: user-app
     spec:
       containers:
-      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user:latest2
+      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user:latest
         name: user-api
         ports:
           - containerPort: 8080
