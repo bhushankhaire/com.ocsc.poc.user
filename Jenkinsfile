@@ -48,7 +48,7 @@ pipeline {
                 }
             } 
         }
-	stage('Deploy our image') { 
+	stage('Upload our image to OCIR') { 
             steps { 
                 script { 
                   	docker.withRegistry(registryUrl, registryCredential ) { 
