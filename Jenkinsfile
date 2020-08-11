@@ -55,8 +55,6 @@ pipeline {
                         dockerImage.push() 
 		       //dockerImage.push('latest')
                    }
-		   //sh "sudo docker login -u 'yzguo69kabyn/oracleidentitycloudservice/bhushan.khaire@oracle.com' -p ':HCzXi)Oe-4gm2FRa9yo' bom.ocir.io"
-		   //sh "sudo docker push "+dockerImage
                 } 
             }
         } 
