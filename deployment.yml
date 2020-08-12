@@ -28,7 +28,7 @@ spec:
         app: user-app
     spec:
       containers:
-      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user:'BUILD_NUMBER'
+      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user:BUILD_NUMBER
         imagePullPolicy: Always
         name: user-api
         ports:
