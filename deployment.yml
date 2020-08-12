@@ -29,6 +29,7 @@ spec:
     spec:
       containers:
       - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user:latest
+        imagePullPolicy: Always
         name: user-api
         ports:
           - containerPort: 8080
