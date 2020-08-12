@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ocsc.poc.entity.User;
+import com.ocsc.poc.model.LoginDetails;
 import com.ocsc.poc.model.UserDetails;
 import com.ocsc.poc.repository.UserRepository;
+import com.ocsc.poc.ulti.LoginException;
 import com.ocsc.poc.ulti.RecordNotFoundException;
 import com.ocsc.poc.ulti.TechnicalException;
 
@@ -28,7 +30,8 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("User already exists");
 		}
 		try {
-			User user = new User(ud.getUserId(), ud.getUserName(), ud.getMobileNumber(), ud.getEmailId());
+			User user = new User(ud.getUserId(), ud.getUserName(), ud.getMobileNumber(), ud.getEmailId(),
+					ud.getPassword());
 			user = repository.save(user);
 			ud.setUserId(user.getUserId());
 		} catch (Exception ex) {
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService {
 			throw new RecordNotFoundException("User doesnot exists");
 		}
 		UserDetails ud = new UserDetails(user.get().getUserId(), user.get().getUserName(), user.get().getMobileNumber(),
-				user.get().getEmailId());
+				user.get().getEmailId(), null);
 
 		return ud;
 	}
@@ -57,8 +60,17 @@ public class UserServiceImpl implements UserService {
 			throw new RecordNotFoundException("User doesnot exists");
 		}
 		UserDetails ud = new UserDetails(user.get().getUserId(), user.get().getUserName(), user.get().getMobileNumber(),
-				user.get().getEmailId());
+				user.get().getEmailId(), null);
 		return ud;
+	}
+
+	@Override
+	public void login(LoginDetails login) throws LoginException {
+
+		Optional<User> user = repository.findByEmailIdAndPassword(login.getEmailId(), login.getPassword());
+		if (!user.isPresent()) {
+			throw new LoginException("Invalid login details");
+		}
 	}
 
 }

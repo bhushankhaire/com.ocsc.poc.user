@@ -9,17 +9,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDetails {
+public class LoginDetails {
 
-	@Getter
-	@Setter
-	private Integer userId;
-	@Getter
-	@Setter
-	private String userName;
-	@Getter
-	@Setter
-	private String mobileNumber;
 	@Getter
 	@Setter
 	private String emailId;

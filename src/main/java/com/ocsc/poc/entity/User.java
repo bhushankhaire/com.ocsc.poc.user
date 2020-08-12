@@ -42,4 +42,8 @@ public class User {
 	@Column(name = "email_id")
 	private String emailId;
 
+	@Getter
+	@Setter
+	@Column(name = "password")
+	private String password;
 }
