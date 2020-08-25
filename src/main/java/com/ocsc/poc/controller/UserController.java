@@ -50,4 +50,10 @@ public class UserController {
 	public void login(@Valid @RequestBody LoginDetails login) throws LoginException {
 		userService.login(login);
 	}
+
+	@PostMapping(path = "/newurl", produces = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public String newUrl() throws LoginException {
+		return "this is my new url";
+	}
 }
