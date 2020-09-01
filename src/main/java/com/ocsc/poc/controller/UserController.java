@@ -51,9 +51,9 @@ public class UserController {
 		userService.login(login);
 	}
 
-	@PostMapping(path = "/newurl", produces = "application/json")
+	@PostMapping(path = "/oldurl", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public String newUrl() throws LoginException {
-		return "this is my new url";
+		return "this is my old url";
 	}
 }
