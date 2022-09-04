@@ -1,20 +1,15 @@
-pipeline {
-    
+pipeline {   
     environment { 
 		registryUrl="https://bom.ocir.io"
 		registry = "bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.user"
-        registryCredential = 'bom-ocir-oi'
+        	registryCredential = 'bom-ocir-oi'
 		dockerImage = '' 
     }
-
     agent any
-
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "jenkins-maven"
     }
-    
-
     stages {
         stage('Cloning our Git') {
             steps { 
@@ -47,8 +42,8 @@ pipeline {
 	stage('Upload our image to OCIR') { 
             steps { 
                 script { 
-	                  	docker.withRegistry(registryUrl, registryCredential ) { 
-	                    dockerImage.push() 
+	                  docker.withRegistry(registryUrl, registryCredential ) { 
+	                  dockerImage.push() 
                    }
                 } 
             }
